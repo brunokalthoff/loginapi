@@ -17,7 +17,7 @@ router.post('/login', async (req, res) => {
     const match = await comparePasswords(req.body.password, user.password);
     if (!match) return res.status(400).send('Passwrong wrong!');
 
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, { expiresIn: 60 });
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, { expiresIn: 60 * 60 });
     res.header('Auth-Token', token).send('Login Success');
 });
 
