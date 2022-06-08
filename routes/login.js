@@ -7,15 +7,15 @@ const jwt = require('jsonwebtoken');
 router.post('/login', async (req, res) => {
     // Check if new user data is formally valid
     const { error } = loginValidation(req.body);
-    if (error) res.status(400).send(error.details[0].message);
+    if (error) res.send(error.details[0].message);
 
     // Check if email already exists
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(400).send('User not found');
+    if (!user) return res.send('User not found');
     
     // Compare passwords
     const match = await comparePasswords(req.body.password, user.password);
-    if (!match) return res.status(400).send('Passwrong wrong!');
+    if (!match) return res.send('Passwrong wrong!');
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, { expiresIn: 60 * 60 });
     res.header('Auth-Token', token).send('Login Success');

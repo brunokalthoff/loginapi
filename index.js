@@ -1,6 +1,8 @@
 //EXPRESS
 const express = require('express');
+var cors = require('cors')
 const app = express();
+app.use(cors())
 
 //DOTENV
 require('dotenv').config();
@@ -8,7 +10,7 @@ const DB_URI = process.env.DB_URI;
 
 //MONGOOSE
 const mongoose = require('mongoose');
-const main = () => mongoose.connect(DB_URI, ()=>{console.log('Connected to DB!')});
+const main = () => mongoose.connect(DB_URI, () => { console.log('Connected to DB!') });
 main().catch(err => console.log(err));
 
 //MIDDLEWARE
@@ -34,6 +36,6 @@ const allUsersRoute = require('./routes/get.allUsers')
 app.use('/api/allusers', allUsersRoute)
 
 // CONNECT SERVER
-app.listen(5000, ()=>{
-    console.log('Server listening on port 3000')
+app.listen(5000, () => {
+    console.log('Server listening on port 5000')
 })

@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
 
     const users = await User.find();
 
-    res.header('yo', 123).send(users);
+    res.send(users);
 })
 
 module.exports = router;
